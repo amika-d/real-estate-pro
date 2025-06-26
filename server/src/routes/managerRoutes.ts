@@ -1,5 +1,5 @@
 import express from "express"
-import { getManager, createManager} from "../controllers/managerControllers copy"
+import { getManager, createManager} from "../controllers/managerControllers"
 
 const router = express.Router()
 

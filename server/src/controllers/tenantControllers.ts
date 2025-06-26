@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client";
 
 
 
@@ -27,9 +27,10 @@ export const getTenant = async(req:Request , res: Response): Promise<void> => {
 
 export const createTenant = async(req:Request , res: Response): Promise<void> => {
     try{
+        console.log("Received manager creation body:", req.body);
 
-        const {cognitoId, name , email, phoneNumber} = req.params;
-        const tenant = await prisma.tenant.findUnique({
+        const {cognitoId, name , email, phoneNumber} = req.body;
+        const tenant = await prisma.tenant.create({
             data: {
                 cognitoId,
                 name,

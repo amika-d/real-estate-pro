@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client";
 
 
 
@@ -25,9 +25,10 @@ export const getManager = async(req:Request , res: Response): Promise<void> => {
 
 export const createManager = async(req:Request , res: Response): Promise<void> => {
     try{
-
-        const {cognitoId, name , email, phoneNumber} = req.params;
-        const manager = await prisma.manager.findUnique({
+        console.log("Received manager creation body:", req.body);
+        const {cognitoId, name , email, phoneNumber} = req.body;
+        console.log(req.body)
+        const manager = await prisma.manager.create({
             data: {
                 cognitoId,
                 name,

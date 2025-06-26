@@ -6,6 +6,8 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { authMiddleware } from './middleware/authMiddleware'
 import tenantRoutes from "./routes/tenantRoutes"
+import managerRoutes from "./routes/managerRoutes"
+
 // Route Import
 
 
@@ -21,13 +23,18 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 
 // Routes
+app.post("/tenants", (req, res, next) => {
+  console.log(">>> HIT /tenants <<<");
+  next();
+});
+
 
 app.get('/', (req,res) => {
   res.send("This is home route")
   
 })
 app.use('/tenants', authMiddleware(["tenant"]), tenantRoutes);
-app.use('/managers', )
+app.use('/managers', authMiddleware(["manager"]), managerRoutes)
 
 
 const port = Number(process.env.PORT) || 3002;
